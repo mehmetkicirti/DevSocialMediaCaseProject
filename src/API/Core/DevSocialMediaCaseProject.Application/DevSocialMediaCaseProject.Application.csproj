@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\DevSocialMediaCaseProject.Common\DevSocialMediaCaseProject.Common.csproj" />
+    <ProjectReference Include="..\DevSocialMediaCaseProject.Domain\DevSocialMediaCaseProject.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

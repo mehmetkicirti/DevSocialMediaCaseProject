@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\DevSocialMediaCaseProject.Common\DevSocialMediaCaseProject.Common.csproj" />
+  </ItemGroup>
+
 </Project>
