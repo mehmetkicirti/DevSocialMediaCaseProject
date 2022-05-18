@@ -1,5 +1,5 @@
 ﻿using DevSocialMediaCaseProject.Application.Interfaces;
-using DevSocialMediaCaseProject.Domain.Models;
+using DevSocialMediaCaseProject.Common.Domain.Concrete;
 using DevSocialMediaCaseProject.Persistence.Contexts;
 using System;
 using System.Collections.Generic;

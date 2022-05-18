@@ -1,11 +1,10 @@
-﻿using DevSocialMediaCaseProject.Common.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DevSocialMediaCaseProject.Domain.Models
+namespace DevSocialMediaCaseProject.Common.Domain.Concrete
 {
-    public class User: BaseEntity
+    public class User : BaseEntity
     {
         public string Name { get; set; }
         public string Surname { get; set; }

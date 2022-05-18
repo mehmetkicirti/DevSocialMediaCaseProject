@@ -8,5 +8,15 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\DevSocialMediaCaseProject.Common\DevSocialMediaCaseProject.Common.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\DevSocialMediaCaseProject.Persistence\DevSocialMediaCaseProject.Persistence.csproj" />
+  </ItemGroup>
+
 
 </Project>

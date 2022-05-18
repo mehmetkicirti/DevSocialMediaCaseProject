@@ -1,4 +1,4 @@
-﻿using DevSocialMediaCaseProject.Domain.Models;
+﻿using DevSocialMediaCaseProject.Common.Domain.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
