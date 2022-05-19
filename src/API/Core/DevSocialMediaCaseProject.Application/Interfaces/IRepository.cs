@@ -15,8 +15,8 @@ namespace DevSocialMediaCaseProject.Application.Interfaces
         Task<T> Get(FilterDefinition<T> filter);
         Task<T> GetByIdAsync(string id);
         Task<IEnumerable<T>> GetAllAsync(FilterDefinition<T> filter = null);
-        Task Update(T entity);
-        Task Delete(string id);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(string id);
         #endregion
 
 

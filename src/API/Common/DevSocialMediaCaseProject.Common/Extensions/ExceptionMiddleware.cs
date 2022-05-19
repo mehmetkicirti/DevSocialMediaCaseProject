@@ -30,7 +30,7 @@ namespace DevSocialMediaCaseProject.Common.Extensions
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                await HandleExceptionAsync(context, ex.InnerException);
             }
         }
 
@@ -41,7 +41,7 @@ namespace DevSocialMediaCaseProject.Common.Extensions
             string errorMessage = ErrorMessage;
             int statusCode = (int)HttpStatusCode.InternalServerError;
 
-            if (ex.GetType() == typeof(DatabaseException) || ex.GetType() == typeof(ValidationException))
+            if (ex is DatabaseException || ex is ValidationException)
             {
                 errorMessage = ex.Message;
                 statusCode = (int)HttpStatusCode.BadRequest;
@@ -50,12 +50,7 @@ namespace DevSocialMediaCaseProject.Common.Extensions
             context.Response.StatusCode = statusCode;
 
             return context.Response.WriteAsync(
-                new ErrorResponse()
-                {
-                    Message = errorMessage,
-                    StatusCode = statusCode,
-                    IsSuccess = false
-                }.ToString()
+                new ErrorResponse(errorMessage, statusCode).ToString()
                 );
         }
     }

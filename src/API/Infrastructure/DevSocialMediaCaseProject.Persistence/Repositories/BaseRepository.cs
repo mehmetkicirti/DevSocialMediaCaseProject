@@ -27,16 +27,15 @@ namespace DevSocialMediaCaseProject.Persistence.Repositories
         #region Async Ops.
         public async Task AddAsync(T entity)
         {
-            CheckObjectWhileIsNullThrowException(entity);
             await _dbCollection.InsertOneAsync(entity);
         }
 
-        public async Task Delete(string id)
+        public async Task DeleteAsync(string id)
         {
             var objectId = new ObjectId(id);
             await _dbCollection.DeleteOneAsync(Builders<T>.Filter.Eq("_id", objectId));
         }
-        public async Task Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
             CheckObjectWhileIsNullThrowException(entity);
             await _dbCollection.ReplaceOneAsync(Builders<T>.Filter.Eq("_id", entity.Id), entity);

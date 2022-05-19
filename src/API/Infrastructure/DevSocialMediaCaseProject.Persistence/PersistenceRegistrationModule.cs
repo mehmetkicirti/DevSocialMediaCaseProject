@@ -13,16 +13,26 @@ using System.Text;
 
 namespace DevSocialMediaCaseProject.Persistence
 {
-    public class PersistenceRegistrationModule:Module
+    public static class PersistenceRegistrationModule
     {
-        protected override void Load(ContainerBuilder builder)
+        public static void AddPersistenceServiceRegistration(this IServiceCollection services)
         {
-            builder.RegisterType<IMongoDBContext>().As<MongoDBContext>();
-
+            services.AddSingleton<IMongoDBContext, MongoDBContext>();
             #region RepositoryRegistration
-            builder.RegisterType<IUserRepository>().As<UserRepository>();
-            builder.RegisterType<IPostRepository>().As<PostRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IPostRepository, PostRepository>();
             #endregion
+
+
         }
+        //protected override void Load(ContainerBuilder builder)
+        //{
+        //    builder.RegisterType<IMongoDBContext>().As<MongoDBContext>().SingleInstance();
+
+        //    #region RepositoryRegistration
+        //    builder.RegisterType<IUserRepository>().As<UserRepository>().SingleInstance();
+        //    builder.RegisterType<IPostRepository>().As<PostRepository>().SingleInstance();
+        //    #endregion
+        //}
     }
 }

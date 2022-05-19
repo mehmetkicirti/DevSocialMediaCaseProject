@@ -25,7 +25,6 @@ namespace DevSocialMediaCaseProject.WebAPI
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>(builder =>
                 {
-                    builder.RegisterModule(new PersistenceRegistrationModule());
                     builder.RegisterModule(new ApplicationRegistrationModule());
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
