@@ -15,7 +15,7 @@ namespace DevSocialMediaCaseProject.Persistence.Repositories
     public class BaseRepository<T> : IRepository<T>
         where T : BaseEntity
     {
-        private readonly IMongoDBContext _mongoContext;
+        protected readonly IMongoDBContext _mongoContext;
         protected IMongoCollection<T> _dbCollection;
 
         public BaseRepository(IMongoDBContext context)

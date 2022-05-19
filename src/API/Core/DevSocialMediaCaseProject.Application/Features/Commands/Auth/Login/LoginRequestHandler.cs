@@ -40,7 +40,7 @@ namespace DevSocialMediaCaseProject.Application.Features.Commands.Auth.Login
             }
             var accessToken = _iTokenHelper.CreateAccessToken(user);
 
-            return new ServiceDataResponse<string>(JsonConvert.SerializeObject(accessToken), ResponseConstants.LOGIN_SUCCESSFULLY);
+            return new ServiceDataResponse<string>(JsonConvert.SerializeObject(accessToken.Token), ResponseConstants.LOGIN_SUCCESSFULLY);
         }
     }
 }

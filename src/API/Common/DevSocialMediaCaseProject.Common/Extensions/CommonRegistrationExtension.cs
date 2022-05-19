@@ -15,6 +15,7 @@ namespace DevSocialMediaCaseProject.Common.Extensions
     {
         public static void AddCommonServicesRegistration(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<ITokenHelper, TokenHelper>();
             services.Configure<MongoDBSetting>(opt =>
             {
                 opt.ConnectionURL = configuration.GetSection("MongoDBConnection:ConnectionURL").Value;

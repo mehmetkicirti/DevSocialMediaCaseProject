@@ -11,6 +11,11 @@ namespace DevSocialMediaCaseProject.Common.Wrappers
             Data = data;
         }
 
+        public ServiceDataResponse(T data) : base(true)
+        {
+            Data = data;
+        }
+
         public ServiceDataResponse(T data, bool isSuccess, string message) : base(message, isSuccess)
         {
             Data = data;

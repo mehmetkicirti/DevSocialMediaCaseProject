@@ -15,14 +15,10 @@ using System.Threading.Tasks;
 
 namespace DevSocialMediaCaseProject.Application.Features.Commands.Posts.DeletePost
 {
-    public class DeletePostRequestHandler : BaseRequestHandler<IPostRepository, Post>, IRequestHandler<DeletePostRequest, ServiceResponse>
+    public class DeletePostRequestHandler : PostRequestHandler, IRequestHandler<DeletePostRequest, ServiceResponse>
     {
-        private readonly IUserRepository _iUserRepository;
-        private const int BadRequestCode = (int)HttpStatusCode.BadRequest;
-        private string UserId;
-        public DeletePostRequestHandler(IUserRepository userRepository, IPostRepository repository, IMapper mapper) : base(repository, mapper)
+        public DeletePostRequestHandler(IUserRepository userRepository, IPostRepository repository, IMapper mapper) : base(userRepository, repository, mapper)
         {
-            _iUserRepository = userRepository;
         }
 
         public async Task<ServiceResponse> Handle(DeletePostRequest request, CancellationToken cancellationToken)
@@ -35,38 +31,5 @@ namespace DevSocialMediaCaseProject.Application.Features.Commands.Posts.DeletePo
 
             throw new DatabaseException(ResponseConstants.DELETE_ENTITY_FAILED, BadRequestCode);
         }
-
-        #region Logics
-        private async Task<IResponse> IsPostExists(string postId)
-        {
-            if (CheckObjectIdIsNotNull(postId))
-            {
-                var post = await Repository.GetByIdAsync(postId);
-                if (post == null)
-                {
-                    return new ErrorResponse(ResponseConstants.ENTITY_NOT_EXIST, BadRequestCode);
-                }
-                UserId = post.UserId.ToString();
-                return new ServiceResponse();
-            }
-            return new ErrorResponse(ResponseConstants.OBJECT_ID_IS_NULL, BadRequestCode);
-        }
-
-        private async Task<IResponse> IsUserExists(string userId)
-        {
-            if (CheckObjectIdIsNotNull(userId))
-            {
-                var user = await _iUserRepository.GetByIdAsync(userId);
-                if (user == null)
-                {
-                    return new ErrorResponse(ResponseConstants.ENTITY_NOT_EXIST, BadRequestCode);
-                }
-                return new ServiceResponse();
-            }
-            return new ErrorResponse(ResponseConstants.OBJECT_ID_IS_NULL, BadRequestCode);
-        }
-
-        private bool CheckObjectIdIsNotNull(string id) => id != null ? true : false;
-        #endregion
     }
 }

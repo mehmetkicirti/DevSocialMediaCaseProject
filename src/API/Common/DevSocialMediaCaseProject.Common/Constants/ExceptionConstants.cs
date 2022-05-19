@@ -12,5 +12,7 @@ namespace DevSocialMediaCaseProject.Common.Constants
         public const string USER_EXIST_ERROR = "User already exists. Please try another email address.";
         public const string USER_NOT_EXIST_ERROR = "User not exists. Please try another email address.";
         public const string PASSWORD_NOT_MATCHED_ERROR = "Maybe your password is not true. Try again with truth password.";
+        public const string PASSWORD_SIMILAR_ERROR = "Old password and New password is similar.";
+        public const string RECORD_NOT_SAVED_ERROR = "While saving your record, something went wrong. Please try again later.";
     }
 }

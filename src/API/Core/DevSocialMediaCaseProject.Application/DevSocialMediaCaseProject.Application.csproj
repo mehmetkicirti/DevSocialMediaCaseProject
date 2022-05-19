@@ -19,14 +19,4 @@
     <ProjectReference Include="..\DevSocialMediaCaseProject.Domain\DevSocialMediaCaseProject.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Commands\Posts\UpdatePost\" />
-    <Folder Include="Features\Commands\Users\DeleteUser\" />
-    <Folder Include="Features\Commands\Users\UpdateUserDetails\" />
-    <Folder Include="Features\Commands\Users\UpdatePassword\" />
-    <Folder Include="Features\ViewModels\" />
-    <Folder Include="Features\Queries\Posts\" />
-    <Folder Include="Features\Queries\Users\" />
-  </ItemGroup>
-
 </Project>
