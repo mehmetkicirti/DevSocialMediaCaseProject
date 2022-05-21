@@ -2,6 +2,7 @@
 using DevSocialMediaCaseProject.Application.Interfaces;
 using DevSocialMediaCaseProject.Common.Constants;
 using DevSocialMediaCaseProject.Common.Domain.Concrete;
+using DevSocialMediaCaseProject.Common.Exceptions;
 using DevSocialMediaCaseProject.Common.Wrappers;
 using MediatR;
 using System;
@@ -20,9 +21,15 @@ namespace DevSocialMediaCaseProject.Application.Features.Commands.Users.UpdateUs
 
         public async Task<ServiceResponse> Handle(UpdateUserDetailsRequest request, CancellationToken cancellationToken)
         {
-            var user = Mapper.Map<User>(request);
-            await Repository.UpdateAsync(user);
-            return new ServiceResponse(ResponseConstants.UPDATE_ENTITY_SUCCESFULLY);
+            var newUser = Mapper.Map<User>(request);
+            var user = await Repository.GetByIdAsync(request.Id);
+            if(user != null)
+            {
+                newUser.Password = user.Password;
+                await Repository.UpdateAsync(newUser);
+                return new ServiceResponse(ResponseConstants.UPDATE_ENTITY_SUCCESFULLY);
+            }
+            throw new DatabaseException(ExceptionConstants.USER_NOT_EXIST_ERROR);
         }
     }
 }

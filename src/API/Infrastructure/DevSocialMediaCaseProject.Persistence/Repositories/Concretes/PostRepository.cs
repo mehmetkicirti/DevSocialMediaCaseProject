@@ -17,24 +17,33 @@ namespace DevSocialMediaCaseProject.Persistence.Repositories.Concretes
         {
         }
 
+        public IEnumerable<UserPostViewDTO> GetAllPostDetails()
+        {
+            var query = GetPosts();
+            return query.ToList();
+        }
+
         public IEnumerable<UserPostViewDTO> GetByUserIdPosts(string userId)
+        {
+            var query = GetPosts().Where(u=>u.Id == ObjectId.Parse(userId));
+            return query.ToList();
+        }
+
+        private IQueryable<UserPostViewDTO> GetPosts()
         {
             var users = _mongoContext.GetCollection<User>(typeof(User).Name).AsQueryable<User>();
             var posts = _dbCollection.AsQueryable<Post>();
-
-            var query = from u in users
-                        join p in posts on u.Id equals ObjectId.Parse(userId)
-                        into joinedUserPosts
-                        select new UserPostViewDTO
-                        {
-                            Email = u.Email,
-                            Id = u.Id,
-                            Name = u.Name,
-                            Surname = u.Surname,
-                            Posts = joinedUserPosts
-                        };
-            return query.ToList();
-
+            return from u in users
+                   join p in posts on u.Id equals p.UserId
+                   into joinedUserPosts
+                   select new UserPostViewDTO
+                   {
+                       Email = u.Email,
+                       Id = u.Id,
+                       Name = u.Name,
+                       Surname = u.Surname,
+                       Posts = joinedUserPosts
+                   };
         }
     }
 }

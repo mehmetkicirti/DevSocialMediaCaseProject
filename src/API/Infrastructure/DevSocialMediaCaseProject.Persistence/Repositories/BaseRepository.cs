@@ -68,7 +68,7 @@ namespace DevSocialMediaCaseProject.Persistence.Repositories
         private bool IsObjectNull(T entity) => entity != null ? true : false;
         private void CheckObjectWhileIsNullThrowException(T entity)
         {
-            if (IsObjectNull(entity)) throw new DatabaseException(ExceptionConstants.OBJECT_IS_NULL);
+            if (!IsObjectNull(entity)) throw new DatabaseException(ExceptionConstants.OBJECT_IS_NULL);
         }
 
         #endregion

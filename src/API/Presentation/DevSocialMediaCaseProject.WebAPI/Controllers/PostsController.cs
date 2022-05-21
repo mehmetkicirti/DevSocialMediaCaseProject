@@ -1,6 +1,7 @@
 ﻿using DevSocialMediaCaseProject.Application.Features.Commands.Posts.CreatePost;
 using DevSocialMediaCaseProject.Application.Features.Commands.Posts.DeletePost;
 using DevSocialMediaCaseProject.Application.Features.Commands.Posts.UpdatePost;
+using DevSocialMediaCaseProject.Application.Features.Queries.Posts.GetAllPostDetails;
 using DevSocialMediaCaseProject.Application.Features.Queries.Posts.GetAllPosts;
 using DevSocialMediaCaseProject.Application.Features.Queries.Posts.GetByUserIdPosts;
 using DevSocialMediaCaseProject.Application.Features.Queries.Users.GetByIdUser;
@@ -31,10 +32,11 @@ namespace DevSocialMediaCaseProject.WebAPI.Controllers
         }
         
         [Authorize]
-        [HttpDelete]
-        public async Task<IActionResult> DeletePost([FromBody] DeletePostRequest request)
-        {
-            return Ok(await Mediator.Send(request));
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePost(string id)
+        {   
+            
+            return Ok(await Mediator.Send(new DeletePostRequest { Id = id}));
         }
 
         [Authorize]
@@ -48,6 +50,13 @@ namespace DevSocialMediaCaseProject.WebAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             var request = new GetAllPostsRequest();
+            return Ok(await Mediator.Send(request));
+        }
+
+        [HttpGet("userPosts/")]
+        public async Task<IActionResult> GetAllPostDetails()
+        {
+            var request = new GetAllPostDetailsRequest();
             return Ok(await Mediator.Send(request));
         }
 

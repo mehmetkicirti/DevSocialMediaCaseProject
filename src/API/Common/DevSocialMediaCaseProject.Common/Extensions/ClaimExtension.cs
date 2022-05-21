@@ -16,6 +16,10 @@ namespace DevSocialMediaCaseProject.Common.Extensions
         {
             claims.Add(new Claim(ClaimTypes.Name, name));
         }
+        public static void AddSurname(this ICollection<Claim> claims, string surname)
+        {
+            claims.Add(new Claim(ClaimTypes.Surname, surname));
+        }
         public static void AddNameIdentifier(this ICollection<Claim> claims, string nameIdentifier)
         {
             claims.Add(new Claim(ClaimTypes.NameIdentifier, nameIdentifier));

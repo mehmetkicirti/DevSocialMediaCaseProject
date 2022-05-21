@@ -21,6 +21,7 @@ namespace DevSocialMediaCaseProject.Application.Features.Queries.Posts.GetAllPos
         public async Task<ServiceDataResponse<IEnumerable<PostViewModel>>> Handle(GetAllPostsRequest request, CancellationToken cancellationToken)
         {
             var posts = await Repository.GetAllAsync();
+            await Task.Delay(1500);
             var viewModel = Mapper.Map<IEnumerable<PostViewModel>>(posts);
             return new ServiceDataResponse<IEnumerable<PostViewModel>>(viewModel, true);
         }

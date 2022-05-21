@@ -10,5 +10,6 @@ namespace DevSocialMediaCaseProject.Application.Interfaces
     public interface IPostRepository: IRepository<Post>
     {
         IEnumerable<UserPostViewDTO> GetByUserIdPosts(string userId);
+        IEnumerable<UserPostViewDTO> GetAllPostDetails();
     }
 }

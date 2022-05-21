@@ -30,7 +30,7 @@ namespace DevSocialMediaCaseProject.Common.Extensions
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex.InnerException);
+                await HandleExceptionAsync(context, ex);
             }
         }
 

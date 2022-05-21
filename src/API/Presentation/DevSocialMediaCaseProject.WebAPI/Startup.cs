@@ -39,7 +39,7 @@ namespace DevSocialMediaCaseProject.WebAPI
 
             app.ConfigurateCustomExceptionMiddleware();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:3000", "http://localhost:4200").AllowAnyHeader());
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

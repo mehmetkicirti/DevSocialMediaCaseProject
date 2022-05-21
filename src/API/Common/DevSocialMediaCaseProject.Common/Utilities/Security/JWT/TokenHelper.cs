@@ -54,7 +54,8 @@ namespace DevSocialMediaCaseProject.Common.Utilities.Security.JWT
             var claims = new List<Claim>();
             claims.AddNameIdentifier(user.Id.ToString());
             claims.AddEmail(user.Email);
-            claims.AddName($"{user.Name} ${user.Surname}");
+            claims.AddName($"{user.Name}");
+            claims.AddSurname($"{user.Surname}");
             return claims;
         } 
 

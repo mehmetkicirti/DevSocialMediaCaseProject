@@ -51,10 +51,10 @@ namespace DevSocialMediaCaseProject.WebAPI.Controllers
             return Ok(await Mediator.Send(request));
         }
 
-        [HttpGet("{:id}")]
-        public async Task<IActionResult> Get([FromQuery] GetByIdUserRequest request)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
         {
-            return Ok(await Mediator.Send(request));
+            return Ok(await Mediator.Send(new GetByIdUserRequest { Id = id}));
         }
     }
 }
