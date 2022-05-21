@@ -10,7 +10,8 @@ import {
     Tooltip,
     Typography,
   } from "@mui/material";
-  import React, { useState } from "react";
+  import React, { useState, useEffect } from "react";
+
   import {
     Add as AddIcon,
     EmojiEmotions,
@@ -20,7 +21,10 @@ import {
   } from "@mui/icons-material";
   import { Box } from "@mui/system";
   import AnimateButton from "./AnimateButton";
-  
+  import {useDispatch} from "react-redux";
+  import {toast} from "react-toastify";
+  import {createPost} from "../redux/features/postSlice";
+import JWTHelper from "../utils/jwtHelper";
   const SytledModal = styled(Modal)({
     display: "flex",
     alignItems: "center",
@@ -36,6 +40,42 @@ import {
   
   const Add = () => {
     const [open, setOpen] = useState(false);
+    const [postValue, setPostValue] = useState("");
+    const [error, setError] = useState("");
+    const {name, surname} = JWTHelper.getUserDetails().user;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+      error && toast.error(error);
+    }, [error]);
+
+
+    const addPost = (event) =>{
+      try{
+        if(!postValue && postValue === "" && postValue.length <= 2){
+          setError("Please don't submit without writed any post value");
+          event.preventDefault();
+        }else{
+          const parameters = {
+            postValue,
+            setOpen,
+            toast
+          }
+          setError("");
+          dispatch(createPost(parameters));
+          // setOpen(false);
+        }
+      }catch(err){
+        toast.error(err);
+      }
+    };
+
+    const onChangePostValue = (event) => {
+      if(event.target && event.target.value && event.target.value.length > 0){
+        setError("");
+      }
+      setPostValue(event.target.value);
+    }
     return (
       <>
         <Tooltip
@@ -59,7 +99,7 @@ import {
         >
           <Box
             width={400}
-            height={300}
+            height={330}
             bgcolor={"background.default"}
             color={"text.primary"}
             p={3}
@@ -74,15 +114,18 @@ import {
                 sx={{ width: 30, height: 30 }}
               />
               <Typography fontWeight={500} variant="span">
-                John Doe
+                {`${name} ${surname}`}
               </Typography>
             </UserBox>
             <TextField
               sx={{ width: "100%" }}
               id="standard-multiline-static"
               multiline
+              error={!!error}
               rows={3}
-              placeholder="What's on your mind?"
+              helperText={error}
+              onChange={onChangePostValue}
+              placeholder={"What's on your mind?"}
               variant="standard"
             />
             <Stack direction="row" gap={1} mt={2} mb={3}>
@@ -92,9 +135,11 @@ import {
               <PersonAdd color="error" />
             </Stack>
             <ButtonGroup
-              fullWidth
               variant="contained"
               aria-label="outlined primary button group"
+              style={
+                {float:"right"}
+              }
             >
               <AnimateButton>
                 <Button
@@ -104,6 +149,7 @@ import {
                     type="submit"
                     variant="contained"
                     color="primary"
+                    onClick={addPost}
                 >
                     POST
                 </Button>

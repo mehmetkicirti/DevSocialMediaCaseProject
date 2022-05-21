@@ -1,30 +1,27 @@
 import React from 'react';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify";
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
     Box,
     Button,
-    Checkbox,
-    Divider,
     FormControl,
-    FormControlLabel,
     FormHelperText,
     Grid,
     IconButton,
     InputAdornment,
     InputLabel,
     OutlinedInput,
-    Stack,
-    Typography,
     useMediaQuery
 } from '@mui/material';
 
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+
 
 // project imports
 import useScriptRef from '../hooks/useScriptRef';
@@ -34,11 +31,18 @@ import AnimateButton from '../components/AnimateButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
+import {login} from "../redux/features/authSlice";
+
 const AuthLogin = ({...others}) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const theme = useTheme();
+    const {error} = useSelector((state) => ({...state.auth}));
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+
     const [showPassword, setShowPassword] = useState(false);
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -49,9 +53,18 @@ const AuthLogin = ({...others}) => {
     
     const initialValues = {
         email: 'nttdata@test.com',
-        password:'NttData_1234',
+        password:'Mehmet_1234',
         submit:null
     };
+
+    useEffect(()=>{
+        if(error){
+            toast.error(error);
+            
+        }
+    }, [error]);
+
+
     const validationSchema = Yup.object().shape({
         email:Yup.string().email("Must be a valid email").max(255).required("Email is required"),
         password: Yup.string().max(16).required("Password is required")
@@ -61,6 +74,19 @@ const AuthLogin = ({...others}) => {
             if (scriptedRef.current) {
                 setStatus({ success: true });
                 setSubmitting(false);
+            }
+            if(values.email && values.password){
+                const formValues = {
+                    email: values.email,
+                    password: values.password
+                };
+                const parameters = {
+                    formValues,
+                    navigate,
+                    toast
+                }
+
+                dispatch(login(parameters));
             }
         } catch (err) {
             console.error(err);

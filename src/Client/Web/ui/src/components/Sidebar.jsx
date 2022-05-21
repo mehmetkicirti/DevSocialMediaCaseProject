@@ -14,9 +14,9 @@ import {
   } from "@mui/material";
   import React from "react";
   
-  const Sidebar = ({mode,setMode}) => {
+  const Sidebar = ({mode,setMode, user}) => {
     return (
-      <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+      <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "none", md:"none", lg:"block" }, height: "calc(100vh - 68px)" }}>
         <Box position="fixed">
           <List>
             <ListItem disablePadding>
@@ -27,14 +27,18 @@ import {
                 <ListItemText primary="Homepage" />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton component="a" href="/profile">
-                <ListItemIcon>
-                  <AccountBox />
-                </ListItemIcon>
-                <ListItemText primary="Profile" />
-              </ListItemButton>
-            </ListItem>
+            {
+              user == null ?
+              <></> : 
+              <ListItem disablePadding>
+                <ListItemButton component="a" href="/profile">
+                  <ListItemIcon>
+                    <AccountBox />
+                  </ListItemIcon>
+                  <ListItemText primary="Profile" />
+                </ListItemButton>
+              </ListItem>
+            }
             <ListItem disablePadding>
               <ListItemButton component="a" href="#">
                 <ListItemIcon>

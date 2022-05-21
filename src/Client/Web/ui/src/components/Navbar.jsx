@@ -1,18 +1,22 @@
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import {Link} from "react-router-dom";
+import { createBrowserHistory } from "history"
 import {
   AppBar,
   Avatar,
   Button,
   Box,
-  InputBase,
   Menu,
   MenuItem,
   styled,
   Toolbar,
   Typography,
+  MenuList,
+  ButtonGroup
 } from "@mui/material";
 import React, { useState } from "react";
+import JWTHelper from '../utils/jwtHelper';
+import { toast } from 'react-toastify';
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -44,38 +48,61 @@ const UserBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Navbar = () => {
+export const getButton = (user, color, to, text) => (
+  user != null ? <></> : <Button component={Link} sx={{ display: { xs: "none", sm: "block" } }} to={to} variant="contained" color={color}>
+  {text}
+</Button>
+);
+
+const Navbar = ({user}) => {
   const [open, setOpen] = useState(false);
+  const [openSmButton, setSmButton] = useState(false);
+  const history = createBrowserHistory();
+
+  const onLogout = () => {
+    JWTHelper.logout();
+    toast.info("Çıkış yapılıyor.");
+    setOpen(false);
+    setTimeout(()=>{
+      history.push("/");
+      history.go();
+    },2500);
+  }
   return (
     <AppBar color='warning' position="sticky">
-      <StyledToolbar>
+      <StyledToolbar sx={{display:"flex"}}>
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
           Social Media
         </Typography>
-        <ConnectWithoutContactIcon sx={{ display: { xs: "block", sm: "none" } }} />
-        <Search>
-          <InputBase placeholder="search..." />
-        </Search>
-        <Button component={Link} sx={{ display: { xs: "none", sm: "block" } }} to="/register" variant="contained" color="success">
-          Sign In
-        </Button>
-        <Button component={Link} sx={{ display: { xs: "none", sm: "block" } }} to="/login" variant="contained" color="secondary">
-          Sign Up
-        </Button>
-        <Icons>
+        <ConnectWithoutContactIcon onClick={(e) => setSmButton(true)} sx={{ display: { xs: "block", sm: "none" } }} />
+        <ButtonGroup>
+          {
+            getButton(user,"success","/register","Sign Up")
+          }
+          {
+            getButton(user,"secondary","/login","Sign In")
+          }
+        </ButtonGroup>
+        {
+          user != null ? 
+          <Icons>
           <Avatar
             sx={{ width: 30, height: 30 }}
             src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
             onClick={(e) => setOpen(true)}
           />
-        </Icons>
-        <UserBox onClick={(e) => setOpen(true)}>
-          <Avatar
-            sx={{ width: 30, height: 30 }}
-            src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          />
-          <Typography variant="span">John</Typography>
-        </UserBox>
+        </Icons> : <></>
+        }
+        {
+          user != null ?
+          <UserBox onClick={(e) => setOpen(true)}>
+            <Avatar
+              sx={{ width: 30, height: 30 }}
+              src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            />
+            <Typography variant="span">John</Typography>
+          </UserBox> : <></>
+        }
       </StyledToolbar>
       <Menu
         id="demo-positioned-menu"
@@ -91,8 +118,34 @@ const Navbar = () => {
           horizontal: "right",
         }}
       >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <Link onClick={e => setOpen(false)} to="/profile" style={{ textDecoration: 'none', display: 'block', color:"black" }}>
+          <MenuItem>Profile</MenuItem>
+        </Link>
+        <MenuItem onClick={onLogout}>Logout</MenuItem>
+      </Menu>
+      <Menu
+        sx={{ display: { xs: "block", sm: "none" } }}
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        open={user == null ? openSmButton : false}
+        onClose={(e) => setSmButton(false)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <MenuList>
+          <Link to="/login" style={{ textDecoration: 'none', display: 'block', color:"black" }}>
+            <MenuItem>Login</MenuItem>
+          </Link>
+          <Link to="/register" style={{ textDecoration: 'none', display: 'block', color:"black" }}>
+            <MenuItem>Register</MenuItem>
+          </Link>
+        </MenuList>
       </Menu>
     </AppBar>
   );
