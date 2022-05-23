@@ -70,7 +70,7 @@ For Backend...
 cd src/API
 open on Visual Studio
 build application
-set as project API side
+set as startup project DevSocialMediaCaseProject.WebAPI
 to connection DB Docker => mongo should be running after that you can go next step
 start application
 ```
