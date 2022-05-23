@@ -1,8 +1,6 @@
 # Ntt Data Test Case
 ## Social Media Application
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-
 Social Media Application is a showing user posts, It means that basically doing CRUD application on Authenticated user. It contains belowing the technologies.
 
 - .NET Core Web API (Backend)
@@ -32,7 +30,7 @@ It includes that belowing the topics;
 |------|----|---------|------------|
 |/api/posts|POST|{'Message:"...","UserId":"ObjectId("...")"'}|To add post that you can use easily the process.|
 |/api/posts|GET|Null|Listing all posts|
-|/api/posts/:id|PUT|{"Message:"...}|To Update the post|
+|/api/posts/|PUT|{"Message:"...}|To Update the post|
 |/api/posts/:id|GET|Null|Get By Id of the post.|
 |/api/posts/:id|DELETE|Null|Delete the post.|
 ---------------------------------------------------------------
