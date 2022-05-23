@@ -21,6 +21,7 @@ It includes that belowing the topics;
 - Onion Architecture
 - MediatR
 - AutoMapper
+- Responsive Design
 
 # Features
 
@@ -71,10 +72,25 @@ For Backend...
 cd src/API
 open on Visual Studio
 build application
-set as project API side 
+set as project API side
+to connection DB Docker => mongo should be running after that you can go next step
 start application
 ```
 
+!! NOTE: This application developing on localhost:27017 Mongo DB 
+
+# UI Pages 
+
+## Login
+![image](https://user-images.githubusercontent.com/45602952/169722271-e15218dc-f64a-4f38-9e60-d75290748785.png)
+## Register
+![image](https://user-images.githubusercontent.com/45602952/169722304-8358a776-c2b5-474e-914e-009d599d102f.png)
+## Homepage
+![image](https://user-images.githubusercontent.com/45602952/169722682-69021dc2-300c-4518-a4f3-9858694446de.png)
+![image](https://user-images.githubusercontent.com/45602952/169722770-b6301869-eb15-4cad-aeb8-27d260cae3bc.png)
+![image](https://user-images.githubusercontent.com/45602952/169722800-f6c0f153-a2ff-4006-8bd2-723243d190f5.png)
+## Profile
+![image](https://user-images.githubusercontent.com/45602952/169722832-720bb975-619c-4d45-8efd-cbce5a8b11b8.png)
 
 
 
