@@ -5,7 +5,7 @@
 
 Social Media Application is a showing user posts, It means that basically doing CRUD application on Authenticated user. It contains belowing the technologies.
 
-- .NET 6 Web API (Backend)
+- .NET Core Web API (Backend)
 - React JS (Frontend)
 - Mongo DB(No SQL Database)
 
